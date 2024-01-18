@@ -1,0 +1,14 @@
+#app {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  margin: 20px;
+  text-align: center;
+}
+
+body {
+  background-color: peachpuff;
+}
