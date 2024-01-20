@@ -252,15 +252,15 @@ const cardsOnDom = (pets) => {
   let domString = ""
   for (const pet of pets) {
     domString += `
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">${pet.name}</h5>
-          <img src="${pet.imageUrl}" class="card-img" alt="${pet.type}">
-          <p class="card-text">Color: ${pet.color}</p>
-          <p class="card-text">Special skill: ${pet.specialSkill}</p>
-          <p class="card-text">Type: ${pet.type}</p>
-        </div>
-      </div>`
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${pet.name}</h5>
+        <img src="${pet.imageUrl}" class="card-img" alt="${pet.type}">
+        <p class="card-text">Color: ${pet.color}</p>
+        <p class="card-text">Special skill: ${pet.specialSkill}</p>
+        <p class="card-text">Type: ${pet.type}</p>
+      </div>
+    </div>`
   }
   renderToDom("#app", domString)
 }
@@ -276,22 +276,22 @@ const allBtn = document.querySelector("#all")
 
 // add click events to filter pets of specific type
 catBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes('cat')) {
-    const filterPets = pets.filter((pet) => pet.type === 'Cat')
+  if (e.target.id.includes("cat")) {
+    const filterPets = pets.filter((pet) => pet.type === "Cat")
     cardsOnDom(filterPets)
   }
 })
 
 dogBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes('dog')) {
-    const filterPets = pets.filter((pet) => pet.type === 'Dog')
+  if (e.target.id.includes("dog")) {
+    const filterPets = pets.filter((pet) => pet.type === "Dog")
     cardsOnDom(filterPets)
   }
 })
 
 dinoBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes('dino')) {
-    const filterPets = pets.filter((pet) => pet.type === 'Dino')
+  if (e.target.id.includes("dino")) {
+    const filterPets = pets.filter((pet) => pet.type === "Dino")
     cardsOnDom(filterPets)
   }
 })
@@ -299,3 +299,31 @@ dinoBtn.addEventListener("click", (e) => {
 allBtn.addEventListener("click", () => {
   cardsOnDom(pets)
 })
+
+// ******************** //
+// ****** CREATE ****** //
+// ******************** //
+
+// select/target the form on the DOM
+const form = document.querySelector("form")
+
+// create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new teammate
+const createPet = (e) => {
+  e.preventDefault() // EVERY TIME YOU CREATE A FORM
+
+  const newPetObj = {
+    id: pets.length + 1,
+    name: document.querySelector("#name").value,
+    color: document.querySelector("#color").value,
+    specialSkill: document.querySelector("#specialSkill").value,
+    type: document.querySelector("#type").value,
+    imageUrl: document.querySelector("#imageUrl").value
+  }
+
+  pets.push(newPetObj)
+  cardsOnDom(pets)
+  form.reset()
+}
+
+// add an event listener for the form submit and pass it the function (callback)
+form.addEventListener("submit", createPet)
