@@ -243,13 +243,13 @@ const pets = [
 
 // render to DOM utility function
 const renderToDom = (divId, htmlToRender) => {
-  const selectedDiv = document.querySelector(divId)
-  selectedDiv.innerHTML = htmlToRender
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = htmlToRender;
 }
 
 // get the cards on the DOM
 const cardsOnDom = (pets) => {
-  let domString = ""
+  let domString = "";
   for (const pet of pets) {
     domString += `
     <div class="card" style="width: 18rem;">
@@ -260,54 +260,54 @@ const cardsOnDom = (pets) => {
         <p class="card-text">Special skill: ${pet.specialSkill}</p>
         <p class="card-text">Type: ${pet.type}</p>
       </div>
-    </div>`
+    </div>`;
   }
-  renderToDom("#app", domString)
+  renderToDom("#app", domString);
 }
 
 // render all cards on page load
-cardsOnDom(pets)
+cardsOnDom(pets);
 
 // target pet type category buttons on the DOM
-const catBtn = document.querySelector("#cat")
-const dogBtn = document.querySelector("#dog")
-const dinoBtn = document.querySelector("#dino")
-const allBtn = document.querySelector("#all")
+const catBtn = document.querySelector("#cat");
+const dogBtn = document.querySelector("#dog");
+const dinoBtn = document.querySelector("#dino");
+const allBtn = document.querySelector("#all");
 
 // add click events to filter pets of specific type
 catBtn.addEventListener("click", (e) => {
   if (e.target.id.includes("cat")) {
-    const filterPets = pets.filter((pet) => pet.type === "Cat")
-    cardsOnDom(filterPets)
+    const filterPets = pets.filter((pet) => pet.type === "Cat");
+    cardsOnDom(filterPets);
   }
-})
+});
 
 dogBtn.addEventListener("click", (e) => {
   if (e.target.id.includes("dog")) {
-    const filterPets = pets.filter((pet) => pet.type === "Dog")
-    cardsOnDom(filterPets)
+    const filterPets = pets.filter((pet) => pet.type === "Dog");
+    cardsOnDom(filterPets);
   }
-})
+});
 
 dinoBtn.addEventListener("click", (e) => {
   if (e.target.id.includes("dino")) {
-    const filterPets = pets.filter((pet) => pet.type === "Dino")
-    cardsOnDom(filterPets)
+    const filterPets = pets.filter((pet) => pet.type === "Dino");
+    cardsOnDom(filterPets);
   }
-})
+});
 
 allBtn.addEventListener("click", () => {
-  cardsOnDom(pets)
-})
+  cardsOnDom(pets);
+});
 
 // ******************** //
 // ****** CREATE ****** //
 // ******************** //
 
 // select/target the form on the DOM
-const form = document.querySelector("form")
+const form = document.querySelector("form");
 
-// create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new teammate
+// create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new pet
 const createPet = (e) => {
   e.preventDefault() // EVERY TIME YOU CREATE A FORM
 
@@ -320,10 +320,10 @@ const createPet = (e) => {
     imageUrl: document.querySelector("#imageUrl").value
   }
 
-  pets.push(newPetObj)
-  cardsOnDom(pets)
-  form.reset()
+  pets.push(newPetObj);
+  cardsOnDom(pets);
+  form.reset();
 }
 
 // add an event listener for the form submit and pass it the function (callback)
-form.addEventListener("submit", createPet)
+form.addEventListener("submit", createPet);
