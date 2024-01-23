@@ -241,6 +241,10 @@ const pets = [
   }
 ]
 
+// ******************** //
+// ******* READ ******* //
+// ******************** //
+
 // render to DOM utility function
 const renderToDom = (divId, htmlToRender) => {
   const selectedDiv = document.querySelector(divId);
@@ -259,14 +263,12 @@ const cardsOnDom = (pets) => {
         <p class="card-text">Color: ${pet.color}</p>
         <p class="card-text">Special skill: ${pet.specialSkill}</p>
         <p class="card-text">Type: ${pet.type}</p>
+        <button class="btn btn-danger" id="delete--${pet.id}">Delete</button>
       </div>
     </div>`;
   }
   renderToDom("#app", domString);
 }
-
-// render all cards on page load
-cardsOnDom(pets);
 
 // target pet type category buttons on the DOM
 const catBtn = document.querySelector("#cat");
@@ -309,7 +311,7 @@ const form = document.querySelector("form");
 
 // create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new pet
 const createPet = (e) => {
-  e.preventDefault() // EVERY TIME YOU CREATE A FORM
+  e.preventDefault(); // EVERY TIME YOU CREATE A FORM
 
   const newPetObj = {
     id: pets.length + 1,
@@ -327,3 +329,39 @@ const createPet = (e) => {
 
 // add an event listener for the form submit and pass it the function (callback)
 form.addEventListener("submit", createPet);
+
+// ******************** //
+// ****** DELETE ****** //
+// ******************** //
+
+// here we will be using event bubbling
+
+// target the app div
+const app = document.querySelector("#app");
+
+// add an event listener to capture clicks
+app.addEventListener("click", (e) => {
+  
+  // check e.target.id includes "delete"
+  if (e.target.id.includes("delete")) {
+    // destructuring: https://github.com/orgs/nss-evening-web-development/discussions/11
+    const [, id] = e.target.id.split("--");
+
+    // add logic to remove from array
+    // .findIndex() is an array method
+    const index = pets.findIndex(e => e.id === Number(id));
+
+    // .splice() modifies the original array
+    pets.splice(index, 1);
+
+    // repaint the DOM with the updated array
+    cardsOnDom(pets);
+  }
+});
+
+const startApp = () => {
+  cardsOnDom(pets);
+  // events(); // ALWAYS LAST
+}
+
+startApp();
