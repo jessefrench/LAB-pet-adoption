@@ -270,6 +270,19 @@ const cardsOnDom = (pets) => {
   renderToDom("#app", domString);
 }
 
+// utility function to filter pets array by type
+const filter = (petsArr, petType) => {
+  filterToggle = false;
+  const typeArr = [];
+  
+  for(const pet of petsArr) {
+    if (pet.type === petType) {
+      typeArr.push(pet);
+    }
+  }
+  return typeArr;
+}
+
 // target pet type category buttons on the DOM
 const catBtn = document.querySelector("#cat");
 const dogBtn = document.querySelector("#dog");
@@ -277,30 +290,54 @@ const dinoBtn = document.querySelector("#dino");
 const allBtn = document.querySelector("#all");
 
 // add click events to filter pets of specific type
-catBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("cat")) {
-    const filterPets = pets.filter((pet) => pet.type === "Cat");
-    cardsOnDom(filterPets);
-  }
+catBtn.addEventListener("click", () => {
+  const catsArr = filter(pets, "Cat");
+  cardsOnDom(catsArr);
 });
 
-dogBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("dog")) {
-    const filterPets = pets.filter((pet) => pet.type === "Dog");
-    cardsOnDom(filterPets);
-  }
+dogBtn.addEventListener("click", () => {
+  const dogsArr = filter(pets, "Dog");
+  cardsOnDom(dogsArr);
 });
 
-dinoBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("dino")) {
-    const filterPets = pets.filter((pet) => pet.type === "Dino");
-    cardsOnDom(filterPets);
-  }
+dinoBtn.addEventListener("click", () => {
+  const dinosArr = filter(pets, "Dino");
+  cardsOnDom(dinosArr);
 });
 
 allBtn.addEventListener("click", () => {
+  filterToggle = true;
   cardsOnDom(pets);
 });
+
+//////////////////// ALTERNATE METHOD TO FILTER PETS ARRAY ///////////////////////
+
+// catBtn.addEventListener("click", (e) => {
+//   if (e.target.id.includes("cat")) {
+//     const filterPets = pets.filter((pet) => pet.type === "Cat");
+//     cardsOnDom(filterPets);
+//   }
+// });
+
+// dogBtn.addEventListener("click", (e) => {
+//   if (e.target.id.includes("dog")) {
+//     const filterPets = pets.filter((pet) => pet.type === "Dog");
+//     cardsOnDom(filterPets);
+//   }
+// });
+
+// dinoBtn.addEventListener("click", (e) => {
+//   if (e.target.id.includes("dino")) {
+//     const filterPets = pets.filter((pet) => pet.type === "Dino");
+//     cardsOnDom(filterPets);
+//   }
+// });
+
+// allBtn.addEventListener("click", () => {
+//   cardsOnDom(pets);
+// });
+
+//////////////////// ALTERNATE METHOD TO FILTER PETS ARRAY ///////////////////////
 
 // ******************** //
 // ****** CREATE ****** //
